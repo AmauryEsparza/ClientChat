@@ -7,7 +7,7 @@ import android.os.Bundle;
 public class MainActivity extends Activity {
 	
 	Button buttonEnviar;
-	Client objClient;
+	ClientHandler objClient;
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
@@ -18,8 +18,8 @@ public class MainActivity extends Activity {
 		buttonEnviar.setOnClickListener(new Button.OnClickListener(){
 			public void onClick(View v)
 			{
-				//Alguna accion que se encuentra en el ActionHandler
-				//Se manda en la clase Client
+				objClient = new ClientHandler();
+				objClient.enviarMensaje();
 			}
 		});
 		
