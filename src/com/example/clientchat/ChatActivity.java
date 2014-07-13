@@ -21,7 +21,7 @@ public class ChatActivity extends Activity {
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_main);
+		setContentView(R.layout.chat_view);
 		editMensaje = (EditText) findViewById(R.id.editTextMensaje);
 		buttonEnviar = (Button) findViewById(R.id.buttonEnviar);
 		objClient = new ClientHandler();		
@@ -30,7 +30,7 @@ public class ChatActivity extends Activity {
 			{
 				
 				try {
-					objClient.enviarMensaje(editMensaje.getText().toString(), 1, "Luis");
+					objClient.enviarMensaje(editMensaje.getText().toString(), "Luis");
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

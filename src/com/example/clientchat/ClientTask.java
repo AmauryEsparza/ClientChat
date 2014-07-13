@@ -8,6 +8,7 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.ObjectInputStream;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
@@ -25,31 +26,28 @@ public class ClientTask extends AsyncTask<JSONObject, Void , Void>{
 	final int serverPort = 13373;
 	JSONArray jsonArray;
 	StringBuilder sb;
+	String response;
 	@Override
 	protected Void doInBackground(JSONObject... action)
 	{
-		String next;
+		
 		Socket socket = null;
 		sb = new StringBuilder();
 		try{
 			socket = new Socket(serverAddress, serverPort);
 			/* Request */
 			BufferedWriter out = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream()));
-			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-			Log.d("JSONObject",""+action[0]+'\0');
+			
+			Log.d("JSONObject ClientTask",""+action[0]+'\0');
 			out.write(action[0].toString()+'\0');
-			//out.flush();
+			out.flush();
+			
+			
+			BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+			response = in.readLine();
+			Log.d("RESPONSE", response);
 			
 			out.close();
-			/* Response */
-			//socket = new Socket(serverAddress, serverPort);
-			while(in.readLine() != "\0")
-			{
-				next = in.readLine();
-				Log.d("RESPONSE", " "+next);
-				sb.append(next + "\n");	
-				
-			}
 			in.close();
 			socket.close();	
 		} catch(UnknownHostException e){
@@ -57,14 +55,16 @@ public class ClientTask extends AsyncTask<JSONObject, Void , Void>{
 			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			Log.d("IOException", "IOException");
+			Log.d("ClientTask IOException", "IOException");
 			e.printStackTrace();		
 		}
+		
 		return null;
 		
 	}
 	public String getStringJSON()
 	{
+		Log.d("ClientTask getStringJSON", response+" ");
 		return sb.toString();
 	}
 	

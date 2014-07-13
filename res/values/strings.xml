@@ -2,5 +2,7 @@
 
     <string name="app_name">ClientChat</string>
     <string name="button_enviar">Enviar</string>
+    <string name="textview_usuario">Usuario</string>
+    <string name="button_ingresar">Ingresar</string>
 
 </resources>

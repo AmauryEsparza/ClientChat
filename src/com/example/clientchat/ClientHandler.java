@@ -13,7 +13,7 @@ import android.util.Log;
 public class ClientHandler {
 	
 	ClientTask clientTask;
-	private String data, identificador, usuario, IP, puerto;
+	private String data, identificador, usuario, IP, puerto, llavePrivada;
 	
 	public ClientHandler()
 	{
@@ -30,29 +30,44 @@ public class ClientHandler {
 		informacion.put("IP", IP);
 		informacion.put("puerto", puerto);
 		json.accumulate("informacion", informacion);
-		run(json);
+		data = run(json);
+		//Procesa el response
+		JSONObject response = new JSONObject(data);
+		if (response.getString(status).equals("ok"))
+		{
+			identificador = response.getString("identificador");
+			llavePrivada = response.getString("llavePrivada");
+			this.usuario = usuario;
+			this.IP = IP;
+			this.puerto = puerto;
+		}	
 	}
 	
-	public void enviarMensaje(String mns, int id, String destinatario) throws JSONException
+	public void enviarMensaje(String mns, String destinatario) throws JSONException
 	{
 		JSONObject json = new JSONObject();
 		JSONObject mensaje = new JSONObject();
 		mensaje.put("horaFecha", Calendar.YEAR + "," + Calendar.DATE + "," + Calendar.DAY_OF_MONTH + "," + Calendar.HOUR_OF_DAY + "," + Calendar.MINUTE+"," + Calendar.SECOND + "," + Calendar.MILLISECOND);
-		mensaje.put("mensaje", mns.toString());
-		mensaje.put("destinatario", new String(destinatario));
+		mensaje.put("mensaje", mns);
+		mensaje.put("destinatario", destinatario);
 		json.put("accion", new String("enviar"));
-		json.put("identificador", id);
+		json.put("identificador", identificador);
 		json.accumulate("informacionMsj", mensaje);
-		run(json);
+		data = run(json);
 	}
+	
 	public void listarUsuarios() throws JSONException
 	{
 		try{
 			JSONObject json = new JSONObject();
 			json.put("accion", new String("listar"));
 			data = run(json);
+			JSONObject response = new JSONObject(data);
+			if(response.getString("status").equals("ok"))
+			{
+				//Coleccion
+			}
 		}catch (JSONException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			Log.d("ClientHandler", "JsonException");
 		}
@@ -69,44 +84,9 @@ public class ClientHandler {
 		else{
 			return "No se recibio nada";
 		}
-					
 	}
-	public String getData() //Los datos que se reciben del server
-	{
-		return data;
-	}
-	public void setIdentificador(String identificador)
-	{
-		this.identificador = identificador;
-	}
-	public String getIdentificador()
-	{
-		return identificador;
-	}
-	public void setUsuario(String usuario)
-	{
-		this.usuario = usuario;
-	}
-	public String getUsuario()
-	{
-		return usuario;
-	}
-	public void setIP(String IP)
-	{
-		this.IP = IP;
-	}
-	public String getIP()
-	{
-		return IP;
-	}
-	public void setPuerto(String puerto)
-	{
-		this.puerto = puerto;
-	}
-	public String getPuerto()
-	{
-		return puerto;
-	}
+	
+	
 	
 	
 	
