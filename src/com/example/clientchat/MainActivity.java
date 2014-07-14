@@ -2,6 +2,7 @@ package com.example.clientchat;
 import org.json.JSONException;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,25 +12,36 @@ public class MainActivity extends Activity {
 
 	Button buttonIngresar;
 	EditText editUsuario;
+	
+	
 	ClientHandler handler = new ClientHandler();
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
 		buttonIngresar = (Button) findViewById(R.id.buttonIngresar);
 		editUsuario = (EditText) findViewById(R.id.editTextUsuario);
+		
 		
 		buttonIngresar.setOnClickListener(new OnClickListener(){
 			public void onClick(View v)
 			{
+				
 				try {
 					
 					handler.actualizarUsuario("0", "online",editUsuario.getText().toString(),"192.169.1.79", "13373");
+					//handler.actualizarUsuario("0", "online",editUsuario.getText().toString(),"192.169.1.131", "13374");
+					
+					
 				
 				} catch (JSONException e) {
 					e.printStackTrace();
 				}
+				Intent intentUsersActivity = new Intent(MainActivity.this, UsersActivity.class);
+				startActivity(intentUsersActivity);
+				
 			}
 		});
 		
