@@ -6,16 +6,12 @@ package com.example.clientchat;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.ObjectInputStream;
-import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
 
 import org.json.JSONArray;
-import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.os.AsyncTask;
@@ -31,6 +27,7 @@ public class ClientTask extends AsyncTask<JSONObject, Void , Void>{
 	protected Void doInBackground(JSONObject... action)
 	{
 		
+		response = "";
 		Socket socket = null;
 		sb = new StringBuilder();
 		try{
@@ -60,12 +57,12 @@ public class ClientTask extends AsyncTask<JSONObject, Void , Void>{
 		}
 		
 		return null;
-		
 	}
+	
 	public String getStringJSON()
 	{
 		Log.d("ClientTask getStringJSON", response+" ");
-		return sb.toString();
+		return response;
 	}
 	
 }
