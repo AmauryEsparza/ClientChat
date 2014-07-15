@@ -31,7 +31,7 @@ public class MainActivity extends Activity {
 				
 				try {
 					
-					handler.actualizarUsuario("0", "online",editUsuario.getText().toString(),"192.169.1.79", "13373");
+					handler.actualizarUsuario("0", "online",editUsuario.getText().toString(),"192.169.0.110", "13373");
 					//handler.actualizarUsuario("0", "online",editUsuario.getText().toString(),"192.169.1.131", "13374");
 					
 					

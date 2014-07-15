@@ -18,7 +18,7 @@ import android.os.AsyncTask;
 import android.util.Log;
 
 public class ClientTask extends AsyncTask<JSONObject, Void , Void>{
-	final String serverAddress = "192.168.1.79";
+	final String serverAddress = "192.168.0.110";
 	final int serverPort = 13373;
 	JSONArray jsonArray;
 	StringBuilder sb;
