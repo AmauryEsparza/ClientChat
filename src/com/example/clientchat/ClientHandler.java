@@ -61,9 +61,6 @@ public class ClientHandler {
 	public void enviarMensaje(String mns, String destinatario) throws JSONException
 	{
 		data = "";
-		
-		destinatario="a81bf1d4-2bdb-4f8b-b539-07b9c3e8473d";
-		
 		JSONObject json = new JSONObject();
 		JSONObject mensaje = new JSONObject();
 		mensaje.put("horaFecha", Calendar.YEAR + "," + Calendar.DATE + "," + Calendar.DAY_OF_MONTH + "," + Calendar.HOUR_OF_DAY + "," + Calendar.MINUTE+"," + Calendar.SECOND + "," + Calendar.MILLISECOND);
