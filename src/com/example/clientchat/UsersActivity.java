@@ -18,12 +18,12 @@ import android.app.Activity;
 import android.app.ListActivity;
 import android.content.Intent;
 public class UsersActivity extends ListActivity {
-	
+	ClientHandler handler;
 	@Override
 	public void onCreate(Bundle savedInstanceState)
 	{
 		super.onCreate(savedInstanceState);		
-		ClientHandler handler = new ClientHandler();
+		handler = new ClientHandler();
 		try {
 			handler.listarUsuarios(); //Request		
 		} catch (JSONException e) {
@@ -40,6 +40,8 @@ public class UsersActivity extends ListActivity {
 			@Override
 			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 				Intent intent = new Intent(getApplicationContext(), ChatActivity.class );
+				//El atributo identificador se debe de obtener en ClientHandler
+				intent.putExtra("DESTINATARIO_ID", handler.getArrayListUsuarios().get(position).get("identificador"));
 				startActivity(intent);
 				
 			}
